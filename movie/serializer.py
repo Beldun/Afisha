@@ -17,4 +17,19 @@ class MoviesSerializer(serializers.ModelSerializer):
 class ReviewsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
-        fields = ('id', 'text', 'movie')
+        fields = ('id', 'text', 'movie', 'stars')
+
+
+class MovieReviewSerializer(serializers.ModelSerializer):
+    director = serializers.SerializerMethodField()
+    reviews = ReviewsSerializer(many=True)
+
+    class Meta:
+        model = Movie
+        fields = ('id', 'title', 'description', 'duration', 'director', 'reviews')
+
+    def get_director(self, movie):
+        return movie.director.name if movie.director else None
+
+
+

@@ -1,5 +1,6 @@
 from django.db import models
 import datetime as datetime_class
+from django.core.validators import MaxLengthValidator, MinLengthValidator
 
 # Create your models here.
 
@@ -23,7 +24,8 @@ class Movie(models.Model):
 
 class Review(models.Model):
     text = models.TextField()
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='reviews')
+    stars = models.SmallIntegerField(default=3, validators=[MaxLengthValidator(5), MinLengthValidator(1)])
 
     def __str__(self):
         return f'{self.movie}_{self.text}'
