@@ -87,4 +87,3 @@ def movie_review_view(request, **kwargs):
         serializer = MovieReviewSerializer(movie, many=True)
 
         return Response(data=serializer.data)
-
