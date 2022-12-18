@@ -20,7 +20,11 @@ def director_view(request):
 @api_view(['GET'])
 def director_detail_view(request, **kwargs):
     if request.method == 'GET':
-        directors = Director.objects.get(id=kwargs['id'])
+        try:
+            directors = Director.objects.get(id=kwargs['id'])
+        except Director.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND,
+                            data={'message': 'Page not found!'})
 
         serializer = DirectorsSerializer(directors, many=False)
 
@@ -40,7 +44,11 @@ def movie_view(request):
 @api_view(['GET'])
 def movie_detail_view(request, **kwargs):
     if request.method == 'GET':
-        movies = Movie.objects.get(id=kwargs['id'])
+        try:
+            movies = Movie.objects.get(id=kwargs['id'])
+        except Movie.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND,
+                            data={'message': 'Page not found!'})
 
         serializer = MoviesSerializer(movies, many=False)
 
@@ -60,7 +68,11 @@ def review_view(request):
 @api_view(['GET'])
 def review_detail_view(request, **kwargs):
     if request.method == 'GET':
-        reviews = Review.objects.get(id=kwargs['id'])
+        try:
+            reviews = Review.objects.get(id=kwargs['id'])
+        except Review.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND,
+                            data={'message': 'Page not found!'})
 
         serializer = ReviewsSerializer(reviews, many=False)
 
@@ -68,7 +80,7 @@ def review_detail_view(request, **kwargs):
 
 
 @api_view(['GET'])
-def movie_review_detail(request, **kwargs):
+def movie_review_view(request, **kwargs):
     if request.method == 'GET':
         movie = Movie.objects.all()
 
