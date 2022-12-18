@@ -35,7 +35,6 @@ class ReviewsSerializer(serializers.ModelSerializer):
         return review.movie.title if review.movie.title else None
 
 
-
 class MovieReviewSerializer(serializers.ModelSerializer):
     director = serializers.SerializerMethodField()
     reviews = ReviewsSerializer(many=True)
