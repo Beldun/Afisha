@@ -35,9 +35,15 @@ class ReviewsSerializer(serializers.ModelSerializer):
         return review.movie.title if review.movie.title else None
 
 
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        exclude = 'movie'.split()
+
+
 class MovieReviewSerializer(serializers.ModelSerializer):
     director = serializers.SerializerMethodField()
-    reviews = ReviewsSerializer(many=True)
+    reviews = ReviewSerializer(many=True)
     average_rating = serializers.SerializerMethodField()
 
     class Meta:
@@ -46,9 +52,6 @@ class MovieReviewSerializer(serializers.ModelSerializer):
 
     def get_director(self, movie):
         return movie.director.name if movie.director else None
-
-    def get_reviews(self, movie):
-        return movie.reviews if movie.reviews else None
 
     def get_average_rating(self, movie):
         lst = [review.stars for review in movie.reviews.all()]
