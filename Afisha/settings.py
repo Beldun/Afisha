@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'movie'
+    'rest_framework.authtoken',
+    'movie',
+    'users'
 ]
 
 JAZZMIN_SETTINGS = {

@@ -1,6 +1,4 @@
 from django.db import models
-import datetime as datetime_class
-from django.core.validators import MaxLengthValidator, MinLengthValidator
 
 # Create your models here.
 

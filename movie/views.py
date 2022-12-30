@@ -19,12 +19,7 @@ def director_view(request):
 
     elif request.method == 'POST':
         serializer = DirectorCreateSerializer(data=request.data)
-
-        if not serializer.is_valid():
-            return Response(status=status.HTTP_400_BAD_REQUEST,
-
-                            data={'errors': serializer.errors})
-
+        serializer.is_valid(raise_exception=True)
         name = serializer.validated_data.get('name')
 
         directors = Director.objects.create(name=name)
@@ -58,10 +53,7 @@ def director_detail_view(request, **kwargs):
         serializer = DirectorUpdateSerializer(data=request.data,
                                               context={'id': directors.id})
 
-        if not serializer.is_valid():
-            return Response(status=status.HTTP_400_BAD_REQUEST,
-
-                            data={'errors': serializer.errors})
+        serializer.is_valid(raise_exception=True)
 
         directors.name = serializer.validated_data.get('name')
         directors.save()
@@ -82,10 +74,7 @@ def movie_view(request):
     elif request.method == 'POST':
         serializer = MovieCreateSerializer(data=request.data)
 
-        if not serializer.is_valid():
-            return Response(status=status.HTTP_400_BAD_REQUEST,
-
-                            data={'errors': serializer.errors})
+        serializer.is_valid(raise_exception=True)
 
         title = serializer.validated_data.get('title')
         description = serializer.validated_data.get('description')
@@ -147,10 +136,7 @@ def review_view(request):
     elif request.method == 'POST':
         serializer = ReviewValidateSerializer(data=request.data)
 
-        if not serializer.is_valid():
-            return Response(status=status.HTTP_400_BAD_REQUEST,
-
-                            data={'errors': serializer.errors})
+        serializer.is_valid(raise_exception=True)
 
         text = serializer.validated_data.get('text')
         movie = serializer.validated_data.get('movie')
