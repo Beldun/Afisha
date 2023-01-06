@@ -15,24 +15,24 @@ class DirectorsSerializer(serializers.ModelSerializer):
 
 
 class MoviesSerializer(serializers.ModelSerializer):
-    director = serializers.SerializerMethodField()
+    director_name = serializers.SerializerMethodField()
 
     class Meta:
         model = Movie
-        fields = ('id', 'title', 'description', 'duration', 'director')
+        fields = ('id', 'title', 'description', 'duration', 'director', 'director_name')
 
-    def get_director(self, movie):
+    def get_director_name(self, movie):
         return movie.director.name if movie.director else None
 
 
 class ReviewsSerializer(serializers.ModelSerializer):
-    movie = serializers.SerializerMethodField()
+    movie_name = serializers.SerializerMethodField()
 
     class Meta:
         model = Review
-        fields = ('id', 'text', 'movie', 'stars')
+        fields = ('id', 'text', 'movie_name', 'movie', 'stars')
 
-    def get_movie(self, review):
+    def get_movie_name(self, review):
         return review.movie.title if review.movie.title else None
 
 
