@@ -15,7 +15,7 @@ class DirectorView(ListCreateAPIView):
     queryset = Director.objects.all()
     serializer_class = DirectorsSerializer
 
-    def create(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         serializer = DirectorCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         name = serializer.validated_data.get('name')
