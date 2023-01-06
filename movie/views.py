@@ -36,8 +36,7 @@ class DirectorDetailView(RetrieveUpdateDestroyAPIView):
     def put(self, request, *args, **kwargs):
         directors = Director.objects.get(id=kwargs['id'])
 
-        serializer = DirectorUpdateSerializer(data=request.data,
-                                              context={'id': directors.id})
+        serializer = DirectorUpdateSerializer(data=request.data)
 
         serializer.is_valid(raise_exception=True)
 
@@ -123,8 +122,7 @@ class ReviewDetailView(RetrieveUpdateDestroyAPIView):
     def put(self, request, *args, **kwargs):
         reviews = Review.objects.get(id=kwargs['id'])
 
-        serializer = ReviewValidateSerializer(data=request.data,
-                                              context={'id': reviews.id})
+        serializer = ReviewValidateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
         reviews.text = serializer.validated_data.get('text')
