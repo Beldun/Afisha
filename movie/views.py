@@ -36,7 +36,8 @@ class DirectorDetailView(RetrieveUpdateDestroyAPIView):
     def put(self, request, *args, **kwargs):
         directors = Director.objects.get(id=kwargs['id'])
 
-        serializer = DirectorUpdateSerializer(data=request.data)
+        serializer = DirectorUpdateSerializer(data=request.data,
+                                              context={'id': directors.id})
 
         serializer.is_valid(raise_exception=True)
 
