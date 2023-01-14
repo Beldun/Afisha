@@ -1,7 +1,6 @@
 venv
 
 .env
-db.json
 
 .idea
 .vscode
